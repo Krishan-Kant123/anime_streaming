@@ -71,7 +71,7 @@ const VideoPlayer = ({fet}) => {
         responsive: true,
         fluid: true,
         sources: [{
-          src: "https://m3u8-proxy-dnuse.amvstr.me/"+ fet.stream.multi.main.url,
+          src: "https://original-api.vercel.app/proxy?p="+ fet.stream.multi.main.url,
           type: "application/x-mpegURL",
         }],
         controlBar: {
@@ -93,7 +93,7 @@ const VideoPlayer = ({fet}) => {
       };
     }
     else if(player){
-      player.src({ src: "https://m3u8-proxy-dnuse.amvstr.me/"+fet.stream.multi.main.url, type: "application/x-mpegURL" });
+      player.src({ src: "https://original-api.vercel.app/proxy?p="+fet.stream.multi.main.url, type: "application/x-mpegURL" });
     }
   }, [fet]);
 

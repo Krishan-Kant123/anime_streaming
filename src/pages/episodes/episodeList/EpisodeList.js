@@ -17,10 +17,13 @@ const EpisodeList = ({data,dubdata}) => {
   const {providers}=useSelector((state)=> state.home)
   
   const[m,setm]=useState("")
+  const [activeIndex, setActiveIndex] = useState(null);
 
 
   const g=(str,provider,i)=>{ 
    setep(i)
+   setActiveIndex(i)
+   
    if(lang=="dub"){
     provider=providers.idGogoDub
    }
@@ -52,35 +55,35 @@ const EpisodeList = ({data,dubdata}) => {
 
     const[la,setla]=useState(data)
   
-  const individual=document.querySelectorAll(".individual");
-  individual.forEach(it =>{
-    it.addEventListener("click",() =>{
+  // const individual=document.querySelectorAll(".individual");
+  // individual.forEach(it =>{
+  //   it.addEventListener("click",() =>{
    
-      document.querySelector(".active")?.classList.remove("active");
-      it.classList.add("active");
-    })
-  })
-  useEffect(()=>{
-    individual.forEach(it =>{
-      it.addEventListener("click",() =>{
+  //     document.querySelector(".active")?.classList.remove("active");
+  //     it.classList.add("active");
+  //   })
+  // })
+  // useEffect(()=>{
+  //   individual.forEach(it =>{
+  //     it.addEventListener("click",() =>{
      
-        it.classList.add("active");
-      })
-    })
-  },[])
+  //       it.classList.add("active");
+  //     })
+  //   })
+  // },[])
 
-  const btn=document.querySelectorAll(".btn");
-  btn.forEach(ik => {
-  ik.addEventListener("click",() =>{
-    document.querySelector(".btnact")?.classList.remove("btnact");
-    ik.classList.add("btnact");
-  })
-  })
-  useEffect(()=>{
-    document.querySelector(".btnact")?.classList.remove("btnact");
+  // const btn=document.querySelectorAll(".btn");
+  // btn.forEach(ik => {
+  // ik.addEventListener("click",() =>{
+  //   document.querySelector(".btnact")?.classList.remove("btnact");
+  //   ik.classList.add("btnact");
+  // })
+  // })
+  // useEffect(()=>{
+  //   document.querySelector(".btnact")?.classList.remove("btnact");
 
-    document.querySelector(".sub")?.classList.add("btnact")
-  },[])
+  //   document.querySelector(".sub")?.classList.add("btnact")
+  // },[])
 
 
  
@@ -112,54 +115,22 @@ const EpisodeList = ({data,dubdata}) => {
 
   const lan=(v)=>{
     if(v=="dub"){ setla(dubdata);
+      setActiveIndex(null)
+      document.querySelector(".btnact")?.classList.remove("btnact");
+      document.querySelector(".dub")?.classList.add("btnact");
+
   
     }
     else{
   setla(data);
+  document.querySelector(".btnact")?.classList.remove("btnact");
+      document.querySelector(".sub")?.classList.add("btnact");
+
+
 }
 
 setlang(v);
 
-    // btn.forEach(ik => {
-    //   ik.addEventListener('click',()=>{
-
-    //     document.querySelector(".btnact").classList.remove("btnact");
-    //     ik.classList.add("btnact");
-    //   })
-    //   // const btn=document.querySelectorAll(".btn");
-    // })
-    
-
-
-  //   fetch(`https://for-me-self.vercel.app/detail/${id}/${v}`)
-  //   .then(response => response.json())
-  //   .then(response => {
-  //     // setdata(response)
-  //     console.log(response)
-    
-  //   })
-  //   .catch(err => console.error(err));
-  // }
-
-  // useEffect(()=>{
-  //   try{
-  //     function tr(){
-  //       return document.fullscreenElement
-  //           || document.webkitFullscreenElement
-  //     }
-  
-  //     let fs=document.getElementById('fs');
-  //     fs.addEventListener('click',()=>{
-  //       if(tr()){
-  //         document.exitFullscreen()
-  //       }
-  //       else{
-  
-  //         document.getElementById("scr").requestFullscreen().catch(console.log)
-  //       }
-  //     })
-  //   }
-  //     catch(err){}
   }
 
   return (
@@ -178,7 +149,7 @@ setlang(v);
                 la?.totalepisodes.map((item,i)=>{
                     return(
                         <>
-<div className='individual' key={i} onClick={()=>{g(item.id,la,la.totalepisodes.length-i)}}>
+<div className={`individual ${activeIndex === la.totalepisodes.length-i ? "active" : ""}`} key={i} onClick={()=>{g(item.id,la,la.totalepisodes.length-i)}}>
 <div className='im'>
 
 <img src={la?.coverImage?.extraLarge} className="imgeep"/>
