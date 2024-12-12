@@ -9,7 +9,8 @@ export const homeSlice = createSlice({
         trending:{1:"hii"},
         popular:{1:"hii"},
         latest:{1:"hii"},
-        ongoing:{1:"hii"}
+        ongoing:{1:"hii"},
+        providers:{1:"hii"}
     },
     reducers: {
         getApiConfiguration: (state, action) => {
@@ -34,10 +35,13 @@ export const homeSlice = createSlice({
         getOngoing: (state, action) => {
             state.ongoing = action.payload;
         },
+        getproviders: (state, action) => {
+            state.providers = action.payload;
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { getApiConfiguration, getData,getTrending,getPopular,getLatest,getdubData,getOngoing } = homeSlice.actions;
+export const { getApiConfiguration, getData,getTrending,getPopular,getLatest,getdubData,getOngoing,getproviders } = homeSlice.actions;
 
 export default homeSlice.reducer;

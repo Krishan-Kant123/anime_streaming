@@ -14,14 +14,21 @@ const EpisodeList = ({data,dubdata}) => {
   const { mediaType, id } = useParams();
   const[name,setname]=useState("")
   const[link,setlink]=useState("")
+  const {providers}=useSelector((state)=> state.home)
   
   const[m,setm]=useState("")
 
 
-  const g=(str,p,i)=>{ 
+  const g=(str,provider,i)=>{ 
    setep(i)
+   if(lang=="dub"){
+    provider=providers.idGogoDub
+   }
+   else{
+    provider=providers.idGogo
+   }
 
-  fetch(`https://random-plum-tau.vercel.app/watch/${str}`)
+  fetch(`https://original-api.vercel.app/watch/${provider}/${i}`)
   .then(res => res.json())
   .then(res => {
  
@@ -226,7 +233,7 @@ setlang(v);
         </div>
         <div className='under'>
 
-        <div className='ep'>Current Episode : {ep} => ({lang})</div>
+        <div className='ep'>Current Episode : {ep} = ({lang})</div>
         <div className='lang'>
 <span className='btn sub btnact' onClick={()=>{lan("sub")}}>SUB</span>
 <span className='btn dub' onClick={()=>{lan("dub")}}>DUB</span>

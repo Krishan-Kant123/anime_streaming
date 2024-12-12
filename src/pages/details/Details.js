@@ -10,7 +10,7 @@ import Similar from "./carousels/Similar";
 
 import Recommendation from "./carousels/Recommendation";
 import { useSelector, useDispatch } from "react-redux";
-import { getData,getdubData, getApiConfiguration } from "../../store/homeSlice";
+import { getData,getdubData, getApiConfiguration, getproviders } from "../../store/homeSlice";
 
 
 const Details = () => {
@@ -32,6 +32,7 @@ const Details = () => {
       setdata(response.data.Media)
       console.log(response)
       dispatch(getData(response.data.Media));
+      dispatch(getproviders(response.id_provider))
     })
     .catch(err => console.error(err));
 

@@ -71,7 +71,7 @@ const VideoPlayer = ({fet}) => {
         responsive: true,
         fluid: true,
         sources: [{
-          src: fet.stream.multi.main.url,
+          src: "https://m3u8-proxy-dnuse.amvstr.me/"+ fet.stream.multi.main.url,
           type: "application/x-mpegURL",
         }],
         controlBar: {
@@ -93,7 +93,7 @@ const VideoPlayer = ({fet}) => {
       };
     }
     else if(player){
-      player.src({ src: fet.stream.multi.main.url, type: "application/x-mpegURL" });
+      player.src({ src: "https://m3u8-proxy-dnuse.amvstr.me/"+fet.stream.multi.main.url, type: "application/x-mpegURL" });
     }
   }, [fet]);
 
@@ -109,3 +109,5 @@ const VideoPlayer = ({fet}) => {
 };
 
 export default VideoPlayer;
+// https://www084.anzeat.pro/streamhls/8326334dbce02dd5b3ff6b75113c5307/ep.7.1703890620.m3u8
+
