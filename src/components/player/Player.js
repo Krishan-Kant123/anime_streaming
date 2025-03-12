@@ -21,7 +21,7 @@ const VideoPlayer = ({fet}) => {
   //   { url: 'https://www111.anicdnstream.info/videos/hls/wC0YP8…56bf518ad8e1a42e82c0ce51e1d/ep.14.1709317657.m3u8', quality: 'backup' }
   // ];
   
-
+console.log(fet.subtitles)
   const createM3U8Playlist = (qualityLinks) => {
     let playlist = '#EXTM3U\n';
     playlist += '#EXT-X-VERSION:3\n';
@@ -71,9 +71,11 @@ const VideoPlayer = ({fet}) => {
         responsive: true,
         fluid: true,
         sources: [{
-          src: "https://original-api.vercel.app/proxy?p="+ fet.stream.multi.main.url,
+          // src: "https://original-api.vercel.app/proxy?p="+ fet.stream.multi.main.url,
+          src:fet.sources[0].url,
           type: "application/x-mpegURL",
         }],
+        tracks:fet.subtitles,
         controlBar: {
           skipButtons: {
             forward: 10,
@@ -93,7 +95,19 @@ const VideoPlayer = ({fet}) => {
       };
     }
     else if(player){
-      player.src({ src: "https://original-api.vercel.app/proxy?p="+fet.stream.multi.main.url, type: "application/x-mpegURL" });
+      player.src({ src: fet.sources[0].url, type: "application/x-mpegURL" });
+      let tracks = player.remoteTextTracks();
+    while (tracks.length > 0) {
+        player.removeRemoteTextTrack(tracks[0]);
+    }
+      fet.subtitles.forEach(sub => {
+        player.addRemoteTextTrack({
+            src: sub.src,
+            kind: "subtitles",
+            srclang: sub.label,
+            label: sub.label
+        }, false);
+    });
     }
   }, [fet]);
 

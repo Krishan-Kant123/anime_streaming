@@ -23,15 +23,13 @@ const EpisodeList = ({data,dubdata}) => {
   const g=(str,provider,i)=>{ 
    setep(i)
    setActiveIndex(i)
-   
+   let dub=false
    if(lang=="dub"){
-    provider=providers.idGogoDub
+    dub=true
    }
-   else{
-    provider=providers.idGogo
-   }
+   
 
-  fetch(`https://original-api.vercel.app/watch/${provider}/${i}`)
+  fetch(`https://random-plum-tau.vercel.app/watch/${str}/${dub}`)
   .then(res => res.json())
   .then(res => {
  
@@ -149,14 +147,14 @@ setlang(v);
                 la?.totalepisodes.map((item,i)=>{
                     return(
                         <>
-<div className={`individual ${activeIndex === la.totalepisodes.length-i ? "active" : ""}`} key={i} onClick={()=>{g(item.id,la,la.totalepisodes.length-i)}}>
+<div className={`individual ${activeIndex === item.number ? "active" : ""}`} key={i} onClick={()=>{g(item.id,la,item.number)}}>
 <div className='im'>
 
 <img src={la?.coverImage?.extraLarge} className="imgeep"/>
 </div>
 <div className='titleep'>
 
-    <span className='epno'>{la.totalepisodes.length-i}&nbsp;</span>
+    <span className='epno'>{item.number}&nbsp;</span>
     <span className='eptitle'>: {item.title?item.title:item.description}</span>
 </div>
 </div>
@@ -204,7 +202,7 @@ setlang(v);
         </div>
         <div className='under'>
 
-        <div className='ep'>Current Episode : {ep} = ({lang})</div>
+        <div className='ep'>Current Episode : {ep} -- ({lang})</div>
         <div className='lang'>
 <span className='btn sub btnact' onClick={()=>{lan("sub")}}>SUB</span>
 <span className='btn dub' onClick={()=>{lan("dub")}}>DUB</span>
