@@ -72,7 +72,7 @@ console.log(fet.subtitles)
         fluid: true,
         sources: [{
           // src: "https://original-api.vercel.app/proxy?p="+ fet.stream.multi.main.url,
-          src:fet.sources[0].url,
+          src:"https://random-plum-tau.vercel.app/proxy?url="+fet.sources[0].url,
           type: "application/x-mpegURL",
         }],
         tracks:fet.subtitles,
